@@ -141,6 +141,8 @@ h1, h2, h3 {
   background-color: var(--light-gray);
   box-shadow: var(--light-shadow);
   z-index: calc(var(--z-above) + var(--z-base));
+  display: flex;
+  justify-content: space-between;
 }
 
 .nav a {
@@ -150,15 +152,27 @@ h1, h2, h3 {
 
 .nav .nav-item {
   color: var(--dark-inactive);
+  display: none;
 }
 .nav .nav-item.active {
   color: var(--dark);
+  display: inline-block;
 }
 
 .nav .nav-item + .nav-item::before {
+  display: none;
   content: "|";
   padding: 0 0.75rem;
   color: var(--dark-gray);
+}
+
+@media (min-width: 768px) {
+  .nav .nav-item {
+    display: inline-block;
+  }
+  .nav .nav-item + .nav-item::before {
+    display: inline-block;
+  }
 }
 
 .content {
