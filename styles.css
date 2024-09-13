@@ -147,6 +147,10 @@ h1, h2, h3 {
   color: unset;
 }
 
+.nav .nav-item.active {
+  font-weight: 600;
+}
+
 .nav .nav-item + .nav-item::before {
   content: "|";
   padding: 0 0.75rem;
@@ -159,7 +163,7 @@ h1, h2, h3 {
   padding-bottom: var(--footer-height) !important;
 }
 
-.set-list-table th button.active .label::after {
+#set-list-table th button.active .label::after {
   content: "▼";
   font-size: 0.75rem;
   margin-left: 0.5rem;
