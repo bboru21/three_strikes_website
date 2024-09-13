@@ -6,6 +6,7 @@
 
   /* colors */
   --dark: #2b2b2f;
+  --dark-inactive: #7b7b85;
   --dark-gray: #CCC;
   --light-gray: #f2f2f2;
   /*--dark-blue: #1c0157;*/ /* original */
@@ -147,8 +148,11 @@ h1, h2, h3 {
   color: unset;
 }
 
+.nav .nav-item {
+  color: var(--dark-inactive);
+}
 .nav .nav-item.active {
-  font-weight: 600;
+  color: var(--dark);
 }
 
 .nav .nav-item + .nav-item::before {
