@@ -25,6 +25,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playball&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -47,18 +49,29 @@
           alt="Three Stikes band photo"
         />
       </div>
-      <div class="nav fs-4 py-2 px-4">
-        <button type="button" class="unstyled-button nav-item active" data-menu-index="0">
-          About
-        </button>
-        <button type="button" class="unstyled-button nav-item" data-menu-index="1">
-          Songs
-        </button>
-        <button type="button" class="unstyled-button nav-item" data-menu-index="2">
-          Contact
-        </button>
-        <button type="button" class="unstyled-button nav-item" data-menu-index="3">
-          Affiliations
+      <div class="desktop-nav fs-4 py-2 px-4">
+        <div class="nav-items">
+          <button type="button" class="unstyled-button nav-item active" data-menu-index="0">
+            About
+          </button>
+          <button type="button" class="unstyled-button nav-item" data-menu-index="1">
+            Songs
+          </button>
+          <button type="button" class="unstyled-button nav-item" data-menu-index="2">
+            Contact
+          </button>
+          <button type="button" class="unstyled-button nav-item" data-menu-index="3">
+            Affiliations
+          </button>
+        </div>
+
+        <button
+          class="unstyled-button mobile-menu-button d-block d-md-none"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#mobile-nav"
+          aria-controls="mobile-nav"
+        >
+          <i class="fa-solid fa-bars fa-lg"></i>
         </button>
       </div>
       <div class="content p-4 fs-4">
@@ -112,6 +125,31 @@
         <div><b>E-Mail:</b> <a href="mailto:3strikesband@gmail.com">3strikesband@gmail.com</a></div>
       </footer>
     </div>
+
+    <!-- begin offcanvas menu -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="mobile-nav" aria-labelledby="mobile-nav-label">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="mobile-nav-label">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul>
+          <li>
+            <button class="unstyled-button nav-item active" data-menu-index="0">About</button>
+          </li>
+          <li>
+            <button class="unstyled-button nav-item" data-menu-index="1">Songs</button>
+          </li>
+          <li>
+            <button class="unstyled-button nav-item" data-menu-index="2">Contact</button>
+          </li>
+          <li>
+            <button class="unstyled-button nav-item" data-menu-index="3">Affiliations</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+     <!-- end offcanvas menu -->
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
@@ -249,13 +287,23 @@
           event.preventDefault();
 
           const button = event.target;
-
           const i = parseInt(button.dataset.menuIndex);
 
           CAROUSEL.to(i);
 
-          document.querySelector(".nav-item.active").classList.remove("active");
-          button.classList.add("active");
+          Array.prototype.forEach.call(document.querySelectorAll(".nav-item.active"), (item) => {
+            item.classList.remove("active");
+          });
+
+          Array.prototype.forEach.call(document.querySelectorAll(`.nav-item[data-menu-index="${i}"]`), (item) => {
+            item.classList.add("active");
+          });
+
+          // close the offcanvas mobile nav if open
+          setTimeout(() => {
+            document.querySelector('#mobile-nav.show .btn-close').click();
+          }, 250);
+
       }
       Array.prototype.forEach.call(MENU_BUTTONS, (item) => {
           item.addEventListener("click", handleMenuButtonClick);
