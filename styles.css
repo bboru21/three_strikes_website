@@ -43,8 +43,8 @@ body {
 }
 
 h1, h2, h3 {
-  font-family: var(--font-cursive);
-  font-weight: 500;
+  font-family: var(--font-serif);
+  font-weight: 300;
 }
 
 .unstyled-button {
@@ -104,7 +104,6 @@ h1, h2, h3 {
 
 .header .upper-nav h1 {
   display: flex;
-  font-family: var(--font-cursive);
   font-optical-sizing: auto;
   font-style: normal;
   font-size: 2rem;
