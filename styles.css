@@ -257,6 +257,9 @@ h1, h2, h3 {
   margin-left: 0.5rem;
   display: inline-block;
 }
+#set-list-table th button.active.reverse .label::after {
+  content: "▲";
+}
 
 footer {
   background-color: var(--dark-blue);

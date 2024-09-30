@@ -175,101 +175,57 @@
           { "interval": false }
       );
 
+      const MOBILE_NAV = document.querySelector('#mobile-nav');
       const MENU_BUTTONS = document.querySelectorAll(".nav-item");
-
-      // TODO move this into a JSON file loaded via fetch
-      const setList = {
-        "data": [
-          { "title": "A Summer Song", "artist": "Chad & Jeremy" },
-          { "title": "All I Have to Do Is Dream", "artist": "Everly Brothers" },
-          { "title": "Always Something There to Remind Me", "artist": "Naked Eyes" },
-          { "title": "Because", "artist": "The Dave Clark Five" },
-          { "title": "Beyond the Sea", "artist": "Bobby Darin" },
-          { "title": "Brown Eyed Girl", "artist": "Van Morrison" },
-          { "title": "Build Me Up Buttercup", "artist": "The Foundations", "songURL": "https://www.youtube.com/watch?v=DlAUEREW5oY" },
-          { "title": "Bye Bye Love", "artist": "Everly Brothers" },
-          { "title": "Centerfield", "artist": "John Fogerty", "songURL": "https://www.youtube.com/watch?v=48xzNCOVvK8" },
-          { "title": "Cherry Cherry", "artist": "Neil Diamond" },
-          { "title": "Daydream Believer", "artist": "The Monkees", "songURL": "https://youtu.be/3sIH9XBJPws" },
-          { "title": "Do You Wanna Dance", "artist": "The Beach Boys", "songURL": "https://www.youtube.com/watch?v=r3WdNslaa6M" },
-          { "title": "Doctor My Eyes", "artist": "Jackson Browne", "songURL": "https://www.youtube.com/watch?v=gMwZLjoXsmI" },
-          { "title": "Don't Ask Me Why", "artist": "Billy Joel" },
-          { "title": "Dream Lover", "artist": "Bobby Darin" },
-          { "title": "Either Way", "artist": "Guster", "artistURL": "https://youtube.com/shorts/o6zX9fXUqzQ?si=0LfzSViBIdE98NhN" },
-          { "title": "From Me To You", "artist": "The Beatles", "songURL": "https://youtu.be/ELJc_YE1UU0" },
-          { "title": "Girl", "artist": "The Beatles" },
-          { "title": "Groovin'", "artist": "The Young Rascals", "songURL": "https://www.youtube.com/watch?v=cv4PbZJKgl8" },
-          { "title": "Hello Mary Lou (Goodbye Heart)", "artist": "Ricky Nelson" },
-          { "title": "Help!", "artist": "The Beatles" },
-          { "title": "I Don't Want to Spoil the Party", "artist": "The Beatles" },
-          { "title": "I Fought the Law", "artist": "The Bobby Fuller Four", "songURL": "https://youtu.be/PHDqZSkmXlk" },
-          { "title": "I Won't Back Down", "artist": "Tom Petty" },
-          { "title": "I'll Follow The Sun", "artist": "The Beatles" },
-          { "title": "I'm a Believer", "artist": "The Monkees", "songURL": "https://www.youtube.com/watch?v=HlGYzANdVXU" },
-          { "title": "I'm Into Something Good", "artist": "Herman's Hermits" },
-          { "title": "If I Fell", "artist": "The Beatles" },
-          { "title": "Jet Airliner", "artist": "The Steve Miller Band" },
-          { "title": "La Bamba", "artist": "Ritchie Valens", "songURL": "https://www.youtube.com/watch?v=ooY0lpKoC-E" },
-          { "title": "Let Her Dance", "artist": "The Bobby Fuller Four", "songURL": "https://youtu.be/dahqlpgUYG4" },
-          { "title": "Me and Julio Down by the Schoolyard", "artist": "Paul Simon" },
-          { "title": "Misery", "artist": "The Beatles", "songURL": "https://youtu.be/smQmSC994uQ" },
-          { "title": "More", "artist": "Bobby Darin" },
-          { "title": "My Girl", "artist": "Temptations" },
-          { "title": "No Reply", "artist": "The Beatles" },
-          { "title": "Oh, Pretty Woman", "artist": "Roy Orbison" },
-          { "title": "P.S. I Love You", "artist": "The Beatles" },
-          { "title": "Poor Little Fool", "artist": "Ricky Nelson" },
-          { "title": "Rhythm of the Rain", "artist": "The Cascades" },
-          { "title": "Runaway", "artist": "Del Shannon" },
-          { "title": "Save the Last Dance", "artist": "The Drifters/Michael Buble" },
-          { "title": "She Loves You", "artist": "The Beatles", "songURL": "https://youtu.be/JeGBQJJAaaQ" },
-          { "title": "Supicious Minds", "artist": "Elvis" },
-          { "title": "Surfer Girl", "artist": "The Beach Boys" },
-          { "title": "Surfin Safari", "artist": "The Beach Boys" },
-          { "title": "Surfin USA", "artist": "The Beach Boys" },
-          { "title": "There's a Kind of Hush", "artist": "Herman's Hermits" },
-          { "title": "This Boy", "artist": "The Beatles", "songURL": "https://youtu.be/JeGBQJJAaaQ" },
-          { "title": "Under the Boardwalk", "artist": "The Drifters" },
-          { "title": "Up On the Roof", "artist": "The Drifters" },
-          { "title": "We Can Work It Out", "artist": "The Beatles" },
-          { "title": "What You Wish For", "artist": "Guster", "songURL": "https://youtu.be/cFIjIEP_x0k", "artistURL": "https://youtube.com/shorts/o6zX9fXUqzQ?si=0LfzSViBIdE98NhN" },
-          { "title": "You're Gonna Lose That Girl", "artist": "The Beatles" }
-        ]
-      };
-
-      const table = document.querySelector("#set-list-table");
-      const buttons = table.querySelectorAll("thead th button");
-      const tbody = table.querySelector("tbody");
+      const SET_LIST_TBODY = document.querySelector("#set-list-table tbody");
+      const SORT_BUTTONS = document.querySelectorAll("#set-list-table thead th button");
+      let SET_LIST_DATA = {};
 
       function handleSortButtonClick(button) {
 
-        // remove active class for array styling
-        Array.prototype.forEach.call(buttons, function(node) {
-          node.classList.remove("active");
-        });
-        button.classList.add("active");
-
         const sortBy = button.dataset.sort;
         renderSetList(sortBy);
+
+        // remove active class for array styling
+        Array.prototype.forEach.call(SORT_BUTTONS, function(node) {
+            node.classList.remove("active");
+            node.classList.remove("reverse");
+        });
+
+        if (sortBy.startsWith('-')) {
+            button.dataset.sort = sortBy.substr(1);
+            button.classList.add("reverse");
+        } else {
+            button.dataset.sort = `-${sortBy}`;
+
+        }
+        button.classList.add("active");
+
       }
 
-      function renderSetList(sortBy) {
+      function renderSetList(sortByParam) {
 
-        sortBy = typeof sortBy==="undefined" ? "title" : sortBy;
+        const sortBy = typeof sortByParam==="undefined" ? "title" : sortByParam;
+        const reverse = sortBy.startsWith('-');
 
-        tbody.innerHTML = "";
+        SET_LIST_TBODY.innerHTML = "";
 
-        const data = setList.data;
+        const data = SET_LIST_DATA.data || [];
+        const key = sortBy.replace(/[^a-z]/ig, "");
 
         data.sort(function (a, b) {
           /* theoretically should never be equal and have to return 0 */
 
           // ignore "The"
           const toIgnore = new RegExp(/^the\s/i);
-          const v1 = a[sortBy].replace(toIgnore, '');
-          const v2 = b[sortBy].replace(toIgnore, '');
+          const v1 = a[key].replace(toIgnore, '');
+          const v2 = b[key].replace(toIgnore, '');
 
-          return (v1 < v2) ? -1 : 1;
+          if (reverse) {
+              return (v1 > v2) ? -1 : 1;
+          } else {
+              return (v1 < v2) ? -1 : 1;
+          }
         });
 
         data.forEach((item) => {
@@ -283,18 +239,25 @@
           col2.innerHTML = item.artistURL ? `<a href="${item.artistURL}" target="_blank">${item.artist}</a>` : item.artist;
           row.appendChild(col2);
 
-          tbody.appendChild(row);
+          SET_LIST_TBODY.appendChild(row);
         });
       };
 
-      function initSetList() {
-        renderSetList();
+      // fetch the set list
+      fetch('./songs.json').then((resp) => {
+          if (resp.status === 200) {
+              return resp.json();
+          } else {
+              console.error(resp.statusText);
+          }
+      }).then((data) => {
+          SET_LIST_DATA = data;
+          renderSetList();
+      });
 
-        Array.prototype.forEach.call(table.querySelectorAll("thead th button"), function(node) {
-          node.addEventListener("click", function() { handleSortButtonClick(node); });
-        });
-      }
-      initSetList();
+      Array.prototype.forEach.call(SORT_BUTTONS, function(node) {
+        node.addEventListener("click", function() { handleSortButtonClick(node); });
+      });
 
       function handleMenuButtonClick(event) {
           event.preventDefault();
@@ -314,7 +277,9 @@
 
           // close the offcanvas mobile nav if open
           setTimeout(() => {
-            document.querySelector('#mobile-nav.show .btn-close').click();
+            if (MOBILE_NAV.classList.contains("show")) {
+              MOBILE_NAV.querySelector('.btn-close').click();
+            }
           }, 250);
 
       }
