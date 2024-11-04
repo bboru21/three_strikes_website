@@ -50,7 +50,7 @@
           src="assets/images/three-strikes-band-photo_1200x600.jpg"
           alt="Three Stikes band photo"
         />
-        <div class="header-photo-banner">
+        <!-- <div class="header-photo-banner">
           <div class="header-photo-banner-content">
             <div class="header-photo-banner-fg p-2">
               <p class="mx-3 mb-0">Classic Songs</p>
@@ -61,7 +61,7 @@
             </div>
             <div class="header-photo-banner-bg"></div>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="desktop-nav fs-4 py-2 px-4">
         <div class="nav-items">
@@ -244,7 +244,7 @@
       };
 
       // fetch the set list
-      fetch('./songs.json').then((resp) => {
+      fetch('./songs.json?c=20241104').then((resp) => {
           if (resp.status === 200) {
               return resp.json();
           } else {
