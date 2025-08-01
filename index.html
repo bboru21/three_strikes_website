@@ -92,7 +92,7 @@
 
         <div id="pageCarousel" class="carousel slide">
           <div class="carousel-inner">
-              <div class="carousel-item active">
+              <div class="carousel-item">
                 <h2>About</h2>
                 <p>
                   We&rsquo;re a three-piece cover band from Northern Virginia, comprised of Jeff Sciscilo on lead-guitar/keys, Bryan Hadro on rhythm guitar, and Hugh O&rsquo;Donnell on bass.
@@ -148,7 +148,7 @@
       <div class="offcanvas-body fs-5">
         <ul>
           <li class="mb-2">
-            <button class="unstyled-button nav-item active" data-menu-index="0">About</button>
+            <button class="unstyled-button nav-item" data-menu-index="0">About</button>
           </li>
           <li class="mb-2">
             <button class="unstyled-button nav-item" data-menu-index="1">Songs</button>
@@ -170,16 +170,44 @@
     <script>
     (function(bootstrap) {
 
-      const CAROUSEL = new bootstrap.Carousel(
-          document.querySelector('#pageCarousel'),
-          { "interval": false }
-      );
-
+      const MENU_HASHES = ["#about", "#songs", "#contact", "#affiliations"];
       const MOBILE_NAV = document.querySelector('#mobile-nav');
       const MENU_BUTTONS = document.querySelectorAll(".nav-item");
       const SET_LIST_TBODY = document.querySelector("#set-list-table tbody");
       const SORT_BUTTONS = document.querySelectorAll("#set-list-table thead th button");
+      const CAROUSEL_ITEMS = document.querySelectorAll("#pageCarousel .carousel-item");
+
       let SET_LIST_DATA = {};
+
+      (function setupPages() {
+        const hash = window.location.hash;
+
+        let pageIndex = MENU_HASHES.indexOf(hash);
+        pageIndex = (pageIndex === -1) ? 0 : pageIndex;
+
+        // apply .active class to appropriate menu button
+        Array.prototype.forEach.call(MENU_BUTTONS, function (item, i) {
+          if (i === pageIndex) {
+            item.classList.add("active");
+          } else {
+            item.classList.remove("active");
+          }
+        });
+
+        // apply .active class to appropriate carousel item
+          Array.prototype.forEach.call(CAROUSEL_ITEMS, function (item, i) {
+              if (i === pageIndex) {
+                  item.classList.add('active');
+              } else {
+                  item.classList.remove('active');
+              }
+          });
+      }());
+
+      const CAROUSEL = new bootstrap.Carousel(
+          document.querySelector('#pageCarousel'),
+          { "interval": false }
+      );
 
       function handleSortButtonClick(button) {
 
@@ -263,15 +291,16 @@
           event.preventDefault();
 
           const button = event.target;
-          const i = parseInt(button.dataset.menuIndex);
+          const pageIndex = parseInt(button.dataset.menuIndex);
 
-          CAROUSEL.to(i);
+          CAROUSEL.to(pageIndex);
+          window.location.hash = MENU_HASHES[pageIndex];
 
           Array.prototype.forEach.call(document.querySelectorAll(".nav-item.active"), (item) => {
             item.classList.remove("active");
           });
 
-          Array.prototype.forEach.call(document.querySelectorAll(`.nav-item[data-menu-index="${i}"]`), (item) => {
+          Array.prototype.forEach.call(document.querySelectorAll(`.nav-item[data-menu-index="${pageIndex}"]`), (item) => {
             item.classList.add("active");
           });
 
