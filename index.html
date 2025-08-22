@@ -72,9 +72,6 @@
             Songs
           </button>
           <button type="button" class="unstyled-button nav-item" data-menu-index="2">
-            Contact
-          </button>
-          <button type="button" class="unstyled-button nav-item" data-menu-index="3">
             Affiliations
           </button>
         </div>
@@ -97,12 +94,13 @@
                 <p>
                   We&rsquo;re a three-piece cover band from Northern Virginia, comprised of Jeff Sciscilo on lead-guitar/keys, Bryan Hadro on rhythm guitar, and Hugh O&rsquo;Donnell on bass.
                   We've been playing music together since college (nearly 25 years) and specialize in playing music from the 50&rsquo;s, 60&rsquo;s and 70&rsquo;s, with particular focus on vocal harmonies. We love playing local wineries, breweries and events in the area.
-                  Follow us on <a href="https://www.facebook.com/profile.php?id=61550894925824" target="_blank">Facebook</a> and <a href="https://www.youtube.com/@ThreeStrikesBand-uj5pp" target="_blank">YouTube</a> for upcoming shows and updates!
                 </p>
+                <p>For booking and inquiries, please reach out via email: <a href="mailto:3strikesband@gmail.com">3strikesband@gmail.com</a>.</p>
+                <p>Follow us on <a href="https://www.facebook.com/profile.php?id=61550894925824" target="_blank">Facebook</a> and <a href="https://www.youtube.com/@ThreeStrikesBand-uj5pp" target="_blank">YouTube</a> for upcoming shows and updates!</p>
               </div>
               <div class="carousel-item">
                 <h2>Songs</h2>
-                <p>Below is a sample list of songs we cover. We&rsquo;re always looking to add new ones, so please feel free to <a href="mailto:3strikesband@gmail.com?subject=Three%20Strikes%20Song%20Request">make requests</a>!</p>
+                <p>Below is a sample list of songs we cover.</p>
                 <hr />
                 <table class="table table-striped" id="set-list-table">
                   <thead>
@@ -123,19 +121,14 @@
                 </table>
               </div>
               <div class="carousel-item">
-                <h2>Contact</h2>
-                <p>For bookings and inquiries, please contact us via e-mail at: <a href="mailto:3strikesband@gmail.com?subject=Three%20Strikes%20Inquiry" class="nav-item">3strikesband@gmail.com</a></p>
-              </div>
-              <div class="carousel-item">
                   <h2>Affiliations</h2>
-                  <p>Jeff and Bryan are also members of the Americana/Country/Bluegrass band, "Whisky Creek Ramblers." Checkout their website for more info: <a href="http://whiskycreekramblers.com" target="_bank">www.WhiskyCreekRamblers.com</a></p>
+                  <p>We also perform as the Americana/Country/Bluegrass band, "Whisky Creek Ramblers." Checkout their website for more info: <a href="http://whiskycreekramblers.com" target="_bank">www.WhiskyCreekRamblers.com</a></p>
               </div>
             </div>
           </div>
       </div>
       <footer class="p-3">
-        <div>&copy; Three Strikes Band 2024</div>
-        <div><b>E-Mail:</b> <a href="mailto:3strikesband@gmail.com">3strikesband@gmail.com</a></div>
+        <div>&copy; Three Strikes Band 2025</div>
       </footer>
     </div>
 
@@ -154,10 +147,7 @@
             <button class="unstyled-button nav-item" data-menu-index="1">Songs</button>
           </li>
           <li class="mb-2">
-            <button class="unstyled-button nav-item" data-menu-index="2">Contact</button>
-          </li>
-          <li class="mb-2">
-            <button class="unstyled-button nav-item" data-menu-index="3">Affiliations</button>
+            <button class="unstyled-button nav-item" data-menu-index="2">Affiliations</button>
           </li>
         </ul>
       </div>
@@ -170,7 +160,11 @@
     <script>
     (function(bootstrap) {
 
-      const MENU_HASHES = ["#about", "#songs", "#contact", "#affiliations"];
+      const MENU_HASHES = [
+        "#about",
+        "#songs",
+        "#affiliations"
+      ];
       const MOBILE_NAV = document.querySelector('#mobile-nav');
       const MENU_BUTTONS = document.querySelectorAll(".nav-item");
       const SET_LIST_TBODY = document.querySelector("#set-list-table tbody");
@@ -272,7 +266,7 @@
       };
 
       // fetch the set list
-      fetch('./songs.json?c=20250801').then((resp) => {
+      fetch('./songs.json?c=20250822').then((resp) => {
           if (resp.status === 200) {
               return resp.json();
           } else {
