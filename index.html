@@ -76,6 +76,9 @@
             Songs
           </button>
           <button type="button" class="unstyled-button nav-item" data-menu-index="2">
+            Events
+          </button>
+          <button type="button" class="unstyled-button nav-item" data-menu-index="3">
             Affiliations
           </button>
         </div>
@@ -125,6 +128,24 @@
                 </table>
               </div>
               <div class="carousel-item">
+                  <h2>Upcoming Events</h2>
+                  <p>Event dates and times are subject to change, please check Facebook and location event pages to confirm information.</p>
+                  <hr />
+                  <table class="table table-striped" id="event-list-table">
+                    <thead>
+                      <tr>
+                        <th>
+                          <span class="label">Date</span>
+                        </th>
+                        <th>
+                          <span class="label">Name</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+              </div>
+              <div class="carousel-item">
                   <h2>Affiliations</h2>
                   <p>We also perform as the Americana/Country/Bluegrass band, "Whisky Creek Ramblers." Checkout their website for more info: <a href="http://whiskycreekramblers.com" target="_bank">www.WhiskyCreekRamblers.com</a></p>
               </div>
@@ -132,7 +153,7 @@
           </div>
       </div>
       <footer class="p-3">
-        <div>&copy; Three Strikes Band 2025</div>
+        <div>&copy; Three Strikes Band <span id="current-year">2025</span></div>
       </footer>
     </div>
 
@@ -151,7 +172,10 @@
             <button class="unstyled-button nav-item" data-menu-index="1">Songs</button>
           </li>
           <li class="mb-2">
-            <button class="unstyled-button nav-item" data-menu-index="2">Affiliations</button>
+            <button class="unstyled-button nav-item" data-menu-index="2">Events</button>
+          </li>
+          <li class="mb-2">
+            <button class="unstyled-button nav-item" data-menu-index="3">Affiliations</button>
           </li>
         </ul>
       </div>
@@ -167,11 +191,13 @@
       const MENU_HASHES = [
         "#about",
         "#songs",
+        "#events",
         "#affiliations"
       ];
       const MOBILE_NAV = document.querySelector('#mobile-nav');
       const MENU_BUTTONS = document.querySelectorAll(".nav-item");
       const SET_LIST_TBODY = document.querySelector("#set-list-table tbody");
+      const EVENT_LIST_TBODY = document.querySelector("#event-list-table tbody");
       const SORT_BUTTONS = document.querySelectorAll("#set-list-table thead th button");
       const CAROUSEL_ITEMS = document.querySelectorAll("#pageCarousel .carousel-item");
 
@@ -313,6 +339,59 @@
       Array.prototype.forEach.call(MENU_BUTTONS, (item) => {
           item.addEventListener("click", handleMenuButtonClick);
       });
+
+      function renderEventList(eventData) {
+
+        EVENT_LIST_TBODY.innerHTML = "";
+
+        let title, date, startTime, endTime;
+        let row, col1, col2;
+        eventData['events'].forEach((event) => {
+          title = event['summary'].replace('Show: ', '');
+
+          date = new Intl.DateTimeFormat("en-US", {
+            weekday: "long",   // Monday
+            month: "long",     // January
+            day: "numeric",    // 6
+          }).format(new Date(event['start']));
+
+          startTime = new Intl.DateTimeFormat("en-US", {
+            hour: "numeric",   // 7 PM
+            hour12: true       // optional
+          }).format(new Date(event['start']));
+
+          endTime = new Intl.DateTimeFormat("en-US", {
+            hour: "numeric",   // 7 PM
+            hour12: true       // optional
+          }).format(new Date(event['end']));
+
+          col1 = document.createElement('td');
+          col1.innerHTML = title;
+
+          col2 = document.createElement('td');
+          col2.innerHTML = `${date} from ${startTime} to ${endTime}`;
+          row = document.createElement('tr');
+          row.appendChild(col1);
+          row.appendChild(col2);
+
+          EVENT_LIST_TBODY.appendChild(row);
+        })
+      }
+
+      // fetch events
+      fetch('./data/events.json?c=20260103').then((resp) => {
+          if (resp.status === 200) {
+              return resp.json();
+          } else {
+              console.error(resp.statusText);
+          }
+      }).then((data) => {
+          renderEventList(data);
+      });
+
+      // current year
+      const year = new Date().getFullYear();
+      document.getElementById("current-year").textContent = year;
 
     }(bootstrap));
     </script>
