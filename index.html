@@ -197,6 +197,7 @@
       const MOBILE_NAV = document.querySelector('#mobile-nav');
       const MENU_BUTTONS = document.querySelectorAll(".nav-item");
       const SET_LIST_TBODY = document.querySelector("#set-list-table tbody");
+      const EVENT_LIST_TBODY = document.querySelector("#event-list-table tbody");
       const SORT_BUTTONS = document.querySelectorAll("#set-list-table thead th button");
       const CAROUSEL_ITEMS = document.querySelectorAll("#pageCarousel .carousel-item");
 
@@ -341,8 +342,40 @@
 
       function renderEventList(eventData) {
 
-        console.log(eventData);
+        EVENT_LIST_TBODY.innerHTML = "";
 
+        let title, date, startTime, endTime;
+        let row, col1, col2;
+        eventData['events'].forEach((event) => {
+          title = event['summary'].replace('Show: ', '');
+
+          date = new Intl.DateTimeFormat("en-US", {
+            weekday: "long",   // Monday
+            month: "long",     // January
+            day: "numeric",    // 6
+          }).format(new Date(event['start']));
+
+          startTime = new Intl.DateTimeFormat("en-US", {
+            hour: "numeric",   // 7 PM
+            hour12: true       // optional
+          }).format(new Date(event['start']));
+
+          endTime = new Intl.DateTimeFormat("en-US", {
+            hour: "numeric",   // 7 PM
+            hour12: true       // optional
+          }).format(new Date(event['end']));
+
+          col1 = document.createElement('td');
+          col1.innerHTML = title;
+
+          col2 = document.createElement('td');
+          col2.innerHTML = `${date} from ${startTime} to ${endTime}`;
+          row = document.createElement('tr');
+          row.appendChild(col1);
+          row.appendChild(col2);
+
+          EVENT_LIST_TBODY.appendChild(row);
+        })
       }
 
       // fetch events
