@@ -76,6 +76,9 @@
             Songs
           </button>
           <button type="button" class="unstyled-button nav-item" data-menu-index="2">
+            Events
+          </button>
+          <button type="button" class="unstyled-button nav-item" data-menu-index="3">
             Affiliations
           </button>
         </div>
@@ -125,6 +128,24 @@
                 </table>
               </div>
               <div class="carousel-item">
+                  <h2>Upcoming Events</h2>
+                  <p>Event dates and times are subject to change, please check Facebook and location event pages to confirm information.</p>
+                  <hr />
+                  <table class="table table-striped" id="event-list-table">
+                    <thead>
+                      <tr>
+                        <th>
+                          <span class="label">Date</span>
+                        </th>
+                        <th>
+                          <span class="label">Name</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+              </div>
+              <div class="carousel-item">
                   <h2>Affiliations</h2>
                   <p>We also perform as the Americana/Country/Bluegrass band, "Whisky Creek Ramblers." Checkout their website for more info: <a href="http://whiskycreekramblers.com" target="_bank">www.WhiskyCreekRamblers.com</a></p>
               </div>
@@ -132,7 +153,7 @@
           </div>
       </div>
       <footer class="p-3">
-        <div>&copy; Three Strikes Band 2025</div>
+        <div>&copy; Three Strikes Band <span id="current-year">2025</span></div>
       </footer>
     </div>
 
@@ -151,7 +172,10 @@
             <button class="unstyled-button nav-item" data-menu-index="1">Songs</button>
           </li>
           <li class="mb-2">
-            <button class="unstyled-button nav-item" data-menu-index="2">Affiliations</button>
+            <button class="unstyled-button nav-item" data-menu-index="2">Events</button>
+          </li>
+          <li class="mb-2">
+            <button class="unstyled-button nav-item" data-menu-index="3">Affiliations</button>
           </li>
         </ul>
       </div>
@@ -167,6 +191,7 @@
       const MENU_HASHES = [
         "#about",
         "#songs",
+        "#events",
         "#affiliations"
       ];
       const MOBILE_NAV = document.querySelector('#mobile-nav');
@@ -313,6 +338,27 @@
       Array.prototype.forEach.call(MENU_BUTTONS, (item) => {
           item.addEventListener("click", handleMenuButtonClick);
       });
+
+      function renderEventList(eventData) {
+
+        console.log(eventData);
+
+      }
+
+      // fetch events
+      fetch('./data/events.json?c=20260103').then((resp) => {
+          if (resp.status === 200) {
+              return resp.json();
+          } else {
+              console.error(resp.statusText);
+          }
+      }).then((data) => {
+          renderEventList(data);
+      });
+
+      // current year
+      const year = new Date().getFullYear();
+      document.getElementById("current-year").textContent = year;
 
     }(bootstrap));
     </script>
