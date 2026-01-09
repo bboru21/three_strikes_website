@@ -344,7 +344,7 @@
 
         EVENT_LIST_TBODY.innerHTML = "";
 
-        let title, date, startTime, endTime;
+        let title, date, startTime, endTime, url;
         let row, col1, col2;
         eventData['events'].forEach((event) => {
           title = event['summary'].replace('Show: ', '');
@@ -365,8 +365,10 @@
             hour12: true       // optional
           }).format(new Date(event['end']));
 
+          url = event['eventURL'];
+
           col1 = document.createElement('td');
-          col1.innerHTML = title;
+          col1.innerHTML = url ? `<a href="${url}" target="_blank">${title}</a>` : title;
 
           col2 = document.createElement('td');
           col2.innerHTML = `${date} from ${startTime} to ${endTime}`;
@@ -379,7 +381,7 @@
       }
 
       // fetch events
-      fetch('./data/events.json?c=20260103').then((resp) => {
+      fetch('./data/events.json?c=20260109').then((resp) => {
           if (resp.status === 200) {
               return resp.json();
           } else {
