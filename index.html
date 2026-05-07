@@ -81,6 +81,9 @@
           <button type="button" class="unstyled-button nav-item" data-menu-index="3">
             Affiliations
           </button>
+          <button type="button" class="unstyled-button nav-item" data-menu-index="4">
+            EPK
+          </button>
         </div>
 
         <button
@@ -149,6 +152,27 @@
                   <h2>Affiliations</h2>
                   <p>We also perform as the Americana/Country/Bluegrass band, "Whisky Creek Ramblers." Checkout their website for more info: <a href="http://whiskycreekramblers.com" target="_bank">www.WhiskyCreekRamblers.com</a></p>
               </div>
+              <div class="carousel-item">
+                  <h2>Electronic Press Kit</h2>
+
+                  <h3>Biography</h3>
+                  <p>Three Strikes is a Northern Virginia–based trio of longtime friends who have been making music together for over 20 years.</p>
+                  <p>Known for their rich vocal harmonies, they bring a fresh energy to classic songs—rediscovering timeless favorites and making them feel new again. While their roots are in the music of the 1950s and ’60s, their repertoire continues to grow, blending beloved classics with unexpected additions.</p>
+                  <p>Over the past five years, Three Strikes has performed at a variety of venues and events across the region, including wineries, breweries, and community fundraisers.</p>
+                  <!-- <p>Notable appearances include Rappahannock Cellars, Reitano Vineyards, Fox Meadow Winery, Arterra Wines, Capstone Vineyards, Front Royal Beer Museum, House of Mercy’s Mercy Fest, and Juan Pablo Fiesta.</p> -->
+
+                  <h3>Sample Videos</h3>
+                  <ul>
+                    <li><a target="_blank" href="https://youtu.be/QwR_8CRfwQo">Cathy's Clown - The Everly Brothers</a></li>
+                    <li><a target="_blank" href="https://youtu.be/ediy7KO23wM?si=25zNymND2xvyXJRJ">Hello Mary Lou (Goodbye Heart) - Ricky Nelson</a></li>
+                    <li><a target="_blank" href="https://youtu.be/MeWitJdDeBM?si=AP22ODWodumqSoPv">Please Please Me - The Beatles</a></li>
+                    <li><a target="_blank" href="https://youtu.be/4fk0joISXJ8?si=PVcJz-0zsJ8ybZRP">Under The Boardwalk - The Drifters</a></li>
+                    <li><a target="_blank" href="https://youtu.be/hLZJ5YyhxBI?si=b1I3kOrweMVTrxZk">Take Me Home Country Roads - John Denver</a></li>
+                    <li><a target="_blank" href="https://youtu.be/0qkOLjpIySo?si=IiA3-CWA4sFIG0Wc">I'm In A Hurry - Alabama</a></li>
+
+                    <li><a target="_blank" href="https://www.youtube.com/channel/UCNiNxENPcZ_cIFpeiLLQyuA">Youtube Channel</a></li>
+                  </ul>
+              </div>
             </div>
           </div>
       </div>
@@ -177,6 +201,9 @@
           <li class="mb-2">
             <button class="unstyled-button nav-item" data-menu-index="3">Affiliations</button>
           </li>
+          <li class="mb-2">
+            <button class="unstyled-button nav-item" data-menu-index="4">EPK</button>
+          </li>
         </ul>
       </div>
     </div>
@@ -192,7 +219,8 @@
         "#about",
         "#songs",
         "#events",
-        "#affiliations"
+        "#affiliations",
+        "#epk"
       ];
       const MOBILE_NAV = document.querySelector('#mobile-nav');
       const MENU_BUTTONS = document.querySelectorAll(".nav-item");
@@ -296,7 +324,7 @@
       };
 
       // fetch the set list
-      fetch('./songs.json?c=20251121').then((resp) => {
+      fetch('./songs.json?c=20260304').then((resp) => {
           if (resp.status === 200) {
               return resp.json();
           } else {
