@@ -350,7 +350,7 @@
       };
 
       // fetch the set list
-      fetch('./songs.json?c=20260304').then((resp) => {
+      fetch('./songs.json?c=20260501').then((resp) => {
           if (resp.status === 200) {
               return resp.json();
           } else {
@@ -411,11 +411,13 @@
 
           startTime = new Intl.DateTimeFormat("en-US", {
             hour: "numeric",   // 7 PM
+            minute: "2-digit",
             hour12: true       // optional
           }).format(new Date(event['start']));
 
           endTime = new Intl.DateTimeFormat("en-US", {
             hour: "numeric",   // 7 PM
+            minute: "2-digit",
             hour12: true       // optional
           }).format(new Date(event['end']));
 
